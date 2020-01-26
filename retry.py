@@ -1,5 +1,6 @@
 import sys
-import funct as f
+
+from . import funct as f
 from time import sleep
 
 

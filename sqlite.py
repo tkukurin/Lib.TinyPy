@@ -14,7 +14,7 @@ class Fetcher:
   def __init__(self, database: Union[str, Path]):
     self.conn = sqlite3.connect(database)
 
-  qq = lambda self, *a, **kw: conn.execute(' '.join(a), **kw)
+  qq = lambda self, *a, **kw: self.conn.execute(' '.join(a), **kw)
   ql = lambda self, *a, **kw: self.qq(*a, **kw).fetchall()
   __call__ = lambda self, *a, **kw: self.ql(*a, **kw)
 
@@ -40,7 +40,7 @@ class TableFetcher:
   ql = lambda self, *a, **kw: self.qq(*a, **kw).fetchall()
   qns = lambda self, selects, *a, **kw: map(
     lambda row: ns(**dict(zip(selects, row))),
-    fetcher.qq(','.join(selects), *a, **kw))
+    self.qq(','.join(selects), *a, **kw))
 
   def qd(self, *sel, **kw):
     '''Convenience? use **kw to specify SELECT params.

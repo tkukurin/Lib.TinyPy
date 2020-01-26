@@ -6,7 +6,7 @@ import operator
 from typing import (
   Union, List, Callable, Iterable)
 
-import funct
+from . import funct
 
 
 idx = operator.itemgetter
