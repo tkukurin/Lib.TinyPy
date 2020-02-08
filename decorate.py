@@ -1,5 +1,6 @@
 import functools as ft
 
+
 # cf. https://wiki.python.org/moin/PythonDecoratorLibrary#Pseudo-currying
 class curried(object):
   '''Decorator. Returns functions until all arguments are supplied.'''
