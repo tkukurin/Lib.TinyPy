@@ -30,3 +30,16 @@ def zip2lst(list_of_zips: Union[List, Iterator]):
   return ft.reduce(accumulate, list_of_zips, tuple([] for _ in list_of_zips))
 
 
+def fuzzymatch(search_term_cased):
+  '''Ignore-case simple fuzzy matching.'''
+  def fuzzy_inner(test_against):
+    search_term, test_against = map(
+        str.lower, (search_term_cased, test_against))
+    iterm = 0
+    for letter in test_against:
+      iterm += (letter == search_term[iterm])
+      if iterm == len(search_term):
+        return True
+    return False
+  return fuzzy_inner
+
