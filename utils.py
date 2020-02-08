@@ -32,9 +32,9 @@ def zip2lst(list_of_zips: Union[List, Iterator]):
 
 def fuzzymatch(search_term_cased):
   '''Ignore-case simple fuzzy matching.'''
+  search_term = search_term_cased.lower()
   def fuzzy_inner(test_against):
-    search_term, test_against = map(
-        str.lower, (search_term_cased, test_against))
+    test_against = test_against.lower()
     iterm = 0
     for letter in test_against:
       iterm += (letter == search_term[iterm])
