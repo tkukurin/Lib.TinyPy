@@ -5,7 +5,7 @@ import io
 from functools import wraps
 
 
-cfg = lambda: logging.basicConfig(**_getcfg)
+cfg = lambda: logging.basicConfig(**_getcfg())
 
 
 def _getcfg():
