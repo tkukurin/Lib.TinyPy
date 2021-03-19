@@ -38,7 +38,13 @@ class Fetcher:
     return [self.TableInfo(*t) for t in tables]
 
   def __init__(self, database: Union[str, Path]):
+    '''Bind fetcher to a database file.
+    NOTE: creates a single persistent connection.
+    '''
     self.conn = sqlite3.connect(database)
+
+  def __del__(self):
+    self.conn.close()
 
   for_ = lambda self, table: TableFetcher(self, table)
 
@@ -80,11 +86,15 @@ class TableFetcher:
   def qmany_(self, *selects: str, size=10, **kw):
     cursor, selects = self._get_named(*selects, **kw)
     while rows := cursor.fetchmany(size=size):
-      yield from map(lambda row: _zipns(selects, row), rows)
+      # Yield in batches
+      yield map(lambda row: _zipns(selects, row), rows)
 
   def qall_(self, *selects: str, **kw):
+    return list(self.qgen_(*selects, **kw))
+
+  def qgen_(self, *selects: str, **kw):
     cursor, selects = self._get_named(*selects, **kw)
-    return list(map(lambda row: _zipns(selects, row), cursor.fetchall()))
+    yield map(lambda row: _zipns(selects, row), rows)
 
   def _get_named(self, *selects, **kw):
     data = self.qd(*selects, **kw)
