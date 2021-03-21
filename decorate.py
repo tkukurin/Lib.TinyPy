@@ -2,7 +2,7 @@ import functools as ft
 
 
 # cf. https://wiki.python.org/moin/PythonDecoratorLibrary#Pseudo-currying
-class curried(object):
+class curried:
   '''Decorator. Returns functions until all arguments are supplied.'''
   def __init__(self, func, *a):
     self.func = func
@@ -38,3 +38,4 @@ def singleton(cls):
   cls.__init__ = object.__init__
 
   return cls
+
