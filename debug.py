@@ -27,7 +27,7 @@ class debug:
       @wraps(f)
       def newf(*args, **kwds):
         args_str, kwds_str = map(debug.REPR, (args, kwds))
-        debug.L.debug('[CALL] %s (%s, %s)', f.__name__, args_str, kwds_str)
+        debug.L.debug('[CALL:%s] (%s, %s)', f.__name__, args_str, kwds_str)
         result = f(*args, **kwds)
         debug.L.debug('[RET:%s] %s', f.__name__, debug.REPR(result))
         return result
