@@ -11,9 +11,10 @@ from typing import (
 import funct
 
 
-idx = operator.itemgetter
+ixget = operator.itemgetter
 partial = ft.partial
 nt = typing.NamedTuple
+ns = types.SimpleNamespace
 const = types.SimpleNamespace
 
 # Take a look at an element from iterable
